@@ -16,6 +16,16 @@ SD_MODEL_CHECKPOINT = "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a2
 async def create_image():
     data = await request.json
     prompt = data["prompt"]
+
+    # other options:
+    # num_outputs=1
+    # image_dimensions="768x768"
+    # negative_prompt=""
+    # num_inference_steps=50
+    # guidance_scale=7.5
+    # scheduler="DPMSolverMultistep"
+    # seed=None
+
     images = replicate.run(
         SD_MODEL_CHECKPOINT,
         input={"prompt": prompt},
