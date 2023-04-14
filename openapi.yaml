@@ -26,7 +26,34 @@ paths:
                 properties:
                   status:
                     type: "string"
-                  url:
+                  result:
+                    type: "string"
+  /create_image_from_drawing:
+    post:
+      summary: "Create an image from a drawing or another image"
+      operationId: "createImageFromDrawing"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                prompt:
+                  type: "string"
+                image_url:
+                  type: "string"
+      responses:
+        200:
+          description: "Image created"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                  result:
                     type: "string"
   /create_video:
     post:
