@@ -2,8 +2,8 @@
   "schema_version": "v1",
   "name_for_human": "Multipass Plugin",
   "name_for_model": "multipass",
-  "description_for_human": "Plugin for generating and modifying images using Huggingface endpoints.",
-  "description_for_model": "Plugin for generating and modifying images using Huggingface endpoints.",
+  "description_for_human": "Plugin for generating and modifying images and video from other models",
+  "description_for_model": "Plugin for generating and modifying images and video from other models",
   "auth": {
     "type": "none"
   },
