@@ -1,21 +1,15 @@
 from typing import Dict, List
 from quart import Quart, request, jsonify, send_file
-import replicate
 
+import replicate
 import quart_cors
 
 app = Quart(__name__)
 quart_cors.cors(app, allow_origin="https://chat.openai.com")
 
+# requires REPLICATE_API_TOKEN env var to be set
+
 SD_MODEL_CHECKPOINT = "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf"
-
-
-@app.after_request
-def add_header(r):
-    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    r.headers["Pragma"] = "no-cache"
-    r.headers["Expires"] = "0"
-    return r
 
 
 @app.route("/create_image", methods=["POST"])
@@ -52,6 +46,15 @@ async def get_logo():
 @app.route("/.well-known/ai-plugin.json", methods=["GET"])
 async def get_ai_plugin_json():
     return await send_file("ai-plugin.json", mimetype="application/json")
+
+
+@app.after_request
+def add_header(r):
+    # preventing cache bc chrome aggressively caches the file API calls
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    return r
 
 
 if __name__ == "__main__":
