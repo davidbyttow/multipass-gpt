@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "multipass-gpt"
+version = "0.1.0"
+description = ""
+authors = ["David Byttow <david.byttow@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+Flask = "^2.2.3"
+jupyter = "^1.0.0"
+numpy = "^1.22.2"
+openai = "^0.27.4"
+pydantic = "^1.9.2"
+python = ">=3.10.4,<3.12"
+quart = "^0.18.4"
+quart-cors = "^0.6.0"
+replit = "^3.2.7"
+urllib3 = "^1.26.12"
+replicate = "^0.8.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+
+[tool.poetry.dev-dependencies]
+replit-python-lsp-server = {extras = ["yapf", "rope", "pyflakes"], version = "^1.5.9"}
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]

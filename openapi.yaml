@@ -1,0 +1,28 @@
+openapi: 3.0.1
+info:
+  title: "Multipass Plugin API"
+  version: "0.0.1"
+paths:
+  /create_image:
+    post:
+      summary: "Create an image"
+      operationId: "createImage"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                prompt:
+                  type: "string"
+      responses:
+        200:
+          description: "Image created"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
