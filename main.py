@@ -9,7 +9,8 @@ quart_cors.cors(app, allow_origin="https://chat.openai.com")
 
 # requires REPLICATE_API_TOKEN env var to be set
 
-SD_MODEL_CHECKPOINT = "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf"
+SD_CHECKPOINT = "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf"
+DAMO_TEXT_TO_VIDEO_CHECKPOINT = "cjwbw/damo-text-to-video:1e205ea73084bd17a0a3b43396e49ba0d6bc2e754e9283b2df49fad2dcf95755"
 
 
 @app.route("/create_image", methods=["POST"])
@@ -26,19 +27,46 @@ async def create_image():
     # scheduler="DPMSolverMultistep"
     # seed=None
 
-    images = replicate.run(
-        SD_MODEL_CHECKPOINT,
+    output = replicate.run(
+        SD_CHECKPOINT,
         input={"prompt": prompt},
     )
 
-    if len(images) == 0:
+    if len(output) == 0:
         return jsonify({"status": "Failed to create image"})
 
-    image = images[0]
+    image = output[0]
     return jsonify(
         {
             "status": "Image created",
-            "result": f"{image}",
+            "result": image,
+        }
+    )
+
+
+@app.route("/create_video", methods=["POST"])
+async def create_video():
+    data = await request.json
+    prompt = data["prompt"]
+
+    # other options:
+    # num_frames=16
+    # num_inference_steps=50
+    # fps=8
+    # seed=None
+
+    output = replicate.run(
+        DAMO_TEXT_TO_VIDEO_CHECKPOINT,
+        input={"prompt": prompt},
+    )
+
+    if not output:
+        return jsonify({"status": "Failed to create video"})
+
+    return jsonify(
+        {
+            "status": "Video created",
+            "url": output,
         }
     )
 

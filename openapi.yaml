@@ -5,7 +5,7 @@ info:
 paths:
   /create_image:
     post:
-      summary: "Create an image"
+      summary: "Create an image from text"
       operationId: "createImage"
       requestBody:
         required: true
@@ -25,4 +25,31 @@ paths:
                 type: "object"
                 properties:
                   status:
+                    type: "string"
+                  url:
+                    type: "string"
+  /create_video:
+    post:
+      summary: "Create a video from text"
+      operationId: "createVideo"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                prompt:
+                  type: "string"
+      responses:
+        200:
+          description: "Image created"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                  url:
                     type: "string"
